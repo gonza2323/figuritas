@@ -6,8 +6,7 @@ import java.util.List;
 
 @ConfigurationProperties(prefix = "app")
 public record AppProperties(
-    Auth auth,
-    List<String> corsOrigins
+    Auth auth
 ) {
     public record Auth(AccessToken accessToken
     ) {

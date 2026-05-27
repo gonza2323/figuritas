@@ -24,7 +24,7 @@ public class Imagen extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private TipoImagen tipoImagen;
+    private TipoImagen tipo;
 
     @Lob
     @Column(nullable = false)
