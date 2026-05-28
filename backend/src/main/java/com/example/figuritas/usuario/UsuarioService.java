@@ -53,6 +53,14 @@ public class UsuarioService {
             throw new BusinessException("Ese nombre de usuario ya está registrado");
     }
 
+    @Transactional
+    public void updatePosition(Long userId, UserPositionUpdateDto dto) {
+        Usuario usuario = find(userId);
+        usuario.setLatitude(dto.getLatitude());
+        usuario.setLongitude(dto.getLongitude());
+        repository.save(usuario);
+    }
+
     public void delete(Usuario usuario) {
         usuario.setEliminado(true);
     }
