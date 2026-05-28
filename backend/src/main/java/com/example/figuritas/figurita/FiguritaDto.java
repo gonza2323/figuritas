@@ -11,6 +11,7 @@ import lombok.Setter;
 public class FiguritaDto {
     private Long id;
     private String nombre;
+    private Long imagenId;
     private boolean owned;
     private boolean wanted;
 }

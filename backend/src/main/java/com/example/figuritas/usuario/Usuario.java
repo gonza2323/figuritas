@@ -23,6 +23,12 @@ public class Usuario extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Imagen rol;
+    @ManyToOne
+    private Imagen avatar;
+
+    @Column
+    private Double latitude;
+
+    @Column
+    private Double longitude;
 }

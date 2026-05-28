@@ -14,4 +14,7 @@ import lombok.experimental.SuperBuilder;
 public class UsuarioViewDto {
     private Long id;
     private String username;
+    private Long avatarId;
+    private Double latitude;
+    private Double longitude;
 }

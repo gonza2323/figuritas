@@ -22,6 +22,6 @@ public class Figurita extends BaseEntity {
     @Column
     private String nombre;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     private Imagen imagen;
 }

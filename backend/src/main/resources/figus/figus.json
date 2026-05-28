@@ -1,3 +1,88 @@
 {
-
+  "figuritas": [
+    {
+      "nombre": "AFA",
+      "archivoImagen": "00.png"
+    },
+    {
+      "nombre": "Selección Argentina 1",
+      "archivoImagen": "01.png"
+    },
+    {
+      "nombre": "Emiliano Martínez",
+      "archivoImagen": "02.png"
+    },
+    {
+      "nombre": "Lionel Messi",
+      "archivoImagen": "03.png"
+    },
+    {
+      "nombre": "Nico González",
+      "archivoImagen": "04.png"
+    },
+    {
+      "nombre": "Giuliano Simeone",
+      "archivoImagen": "05.png"
+    },
+    {
+      "nombre": "Julián Alvarez",
+      "archivoImagen": "06.png"
+    },
+    {
+      "nombre": "Lautaro Martínez",
+      "archivoImagen": "07.png"
+    },
+    {
+      "nombre": "Franco Mastantuono",
+      "archivoImagen": "08.png"
+    },
+    {
+      "nombre": "Enzo Fernández",
+      "archivoImagen": "09.png"
+    },
+    {
+      "nombre": "Alexis Mac Allister",
+      "archivoImagen": "10.png"
+    },
+    {
+      "nombre": "Nico Paz",
+      "archivoImagen": "11.png"
+    },
+    {
+      "nombre": "Leandro Paredes",
+      "archivoImagen": "12.png"
+    },
+    {
+      "nombre": "Rodrigo De Paul",
+      "archivoImagen": "13.png"
+    },
+    {
+      "nombre": "Exequiel Palacios",
+      "archivoImagen": "14.png"
+    },
+    {
+      "nombre": "Christian Romero",
+      "archivoImagen": "15.png"
+    },
+    {
+      "nombre": "Leonardo Balerdi",
+      "archivoImagen": "16.png"
+    },
+    {
+      "nombre": "Nicolás Otamendi",
+      "archivoImagen": "17.png"
+    },
+    {
+      "nombre": "Nahuel Molina",
+      "archivoImagen": "18.png"
+    },
+    {
+      "nombre": "Nicolás Tagliafico",
+      "archivoImagen": "19.png"
+    },
+    {
+      "nombre": "Selección Argentina 2",
+      "archivoImagen": "20.png"
+    }
+  ]
 }

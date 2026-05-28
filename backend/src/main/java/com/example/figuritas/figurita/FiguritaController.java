@@ -1,18 +1,41 @@
 package com.example.figuritas.figurita;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.figuritas.auth.CurrentUser;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class FiguritaController {
+
+    private final FiguritaService figuritaService;
+
     @GetMapping("/me/figuritas")
-    public List<FiguritaDto> getMyFiguritas() {
-        // TODO Aquí iría la lógica para obtener las figuritas del usuario autenticado
-        return new ArrayList<>();
+    public List<FiguritaDto> getMyFiguritas(@AuthenticationPrincipal CurrentUser currentUser) {
+        return figuritaService.getMyFiguritas(currentUser.getId());
+    }
+
+    @PatchMapping("/me/figuritas/{figuritaId}")
+    public void updateFiguritaStatus(
+            @AuthenticationPrincipal CurrentUser currentUser,
+            @PathVariable Long figuritaId,
+            @RequestBody FiguritaStatusUpdateDto dto) {
+        figuritaService.updateFiguritaStatus(currentUser.getId(), figuritaId, dto);
+    }
+
+    @GetMapping("/me/matches")
+    public List<MatchDto> getMatches(@AuthenticationPrincipal CurrentUser currentUser) {
+        return figuritaService.getMatches(currentUser.getId());
+    }
+
+    @GetMapping("/me/matches/{userId}")
+    public MatchDto getUserMatch(
+            @AuthenticationPrincipal CurrentUser currentUser,
+            @PathVariable Long userId) {
+        return figuritaService.getUserMatch(currentUser.getId(), userId);
     }
 }

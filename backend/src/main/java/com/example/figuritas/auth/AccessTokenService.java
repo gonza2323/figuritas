@@ -31,7 +31,7 @@ public class AccessTokenService {
                 .issuedAt(now)
                 .expiresAt(expiryDate)
                 .subject(userId.toString())
-                .claim("roles", List.of())
+                .claim("roles", List.of("USER"))
                 .build();
 
         String encodedToken = this.encoder.encode(JwtEncoderParameters.from(jwsHeader, claims)).getTokenValue();

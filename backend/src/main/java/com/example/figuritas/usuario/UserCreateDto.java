@@ -20,4 +20,7 @@ public class UserCreateDto {
 
     @NotNull(message = "Debe confirmar la contraseña")
     private String passwordConfirm;
-}
+
+    private Double latitude;
+    private Double longitude;
+    }

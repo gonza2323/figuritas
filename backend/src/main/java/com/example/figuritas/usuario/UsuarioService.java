@@ -35,6 +35,8 @@ public class UsuarioService {
         Usuario usuario = Usuario.builder()
                 .username(dto.getUsername())
                 .password(passwordHash)
+                .latitude(dto.getLatitude())
+                .longitude(dto.getLongitude())
                 .build();
 
         return repository.save(usuario);
