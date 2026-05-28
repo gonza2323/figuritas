@@ -4,7 +4,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "app")
 public record AppProperties(
-    Auth auth
+    Auth auth,
+    Data data
 ) {
     public record Auth(AccessToken accessToken
     ) {
@@ -13,4 +14,12 @@ public record AppProperties(
             long durationMinutes
         ) {}
     }
+
+    public record Data(
+            Long seed,
+            int userCount,
+            double baseLatitude,
+            double baseLongitude,
+            double positionOffset
+    ) {}
 }
