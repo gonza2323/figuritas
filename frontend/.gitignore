@@ -39,7 +39,10 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+<<<<<<< HEAD
 
 # IDE Folders
 .claude/
 .vscode/
+=======
+>>>>>>> ddc8f3ae6b1aac608aaf2ab56c794b47249a3a81
