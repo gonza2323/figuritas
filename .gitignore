@@ -1,2 +1,6 @@
 # Databases
 *.db
+
+# IDE folders
+frontend/.claude/
+frontend/.vscode/
