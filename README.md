@@ -2,9 +2,11 @@
 
 ## Como ejecutar el backend
 
-En el directorio `backend/`, ejecutar `./mvnw spring-boot:run`.
+En el directorio `backend/`, ejecutar `./mvnw spring-boot:run`. El backend se ejecuta en el puerto 8080.
 
 ## Endpoints disponibles
+
+Para más detalle, ver los DTOs que recibe / retorna cada endpoint en el código fuente del backend.
 
 ### Autenticación
 * **POST `/api/auth/login`**: Inicia sesión.
