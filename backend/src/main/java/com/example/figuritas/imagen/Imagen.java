@@ -1,5 +1,8 @@
 package com.example.figuritas.imagen;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import com.example.figuritas.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,7 +29,7 @@ public class Imagen extends BaseEntity {
     @Column(nullable = false)
     private TipoImagen tipo;
 
-    @Lob
-    @Column(nullable = false)
+    @Column(columnDefinition = "BLOB")
+    @JdbcTypeCode(SqlTypes.VARBINARY)
     private byte[] contenido;
 }

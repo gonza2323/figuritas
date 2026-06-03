@@ -1,91 +1,135 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   View,
-  TextInput,
-  TouchableHighlight,
   Text,
+  TextInput,
+  TouchableOpacity,
   StyleSheet,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAuth } from "../context/AuthContext";
 
-function LoginScreen() {
-  const [userName, setUserName] = useState("");
+export default function LoginScreen({ navigation }) {
+  const { login } = useAuth();
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const passwordsMatch = (password, passwordConfirm) => {
-    return password === passwordConfirm;
-  };
-  const onPress = () => {};
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const canSubmit = username.trim() && password;
+
+  async function handleLogin() {
+    if (!canSubmit) return;
+    setError("");
+    setLoading(true);
+    try {
+      await login(username.trim(), password);
+    } catch (e) {
+      setError(e.message || "Error al iniciar sesión");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
-    <View>
-      <Text style={styles.title}>¡Regístrate!</Text>
-      <SafeAreaView>
-        <TextInput
-          style={styles.input}
-          onChangeText={setUserName}
-          placeholder="Nombre de usuario"
-          value={userName}
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={setPassword}
-          placeholder="Contraseña"
-          value={password}
-          secureTextEntry={true}
-          autoCapitalize="none"
-        />
-        <TouchableHighlight
-          disabled={!passwordsMatch(password, confirmPassword)}
-          style={[
-            styles.button,
-            !passwordsMatch(password, confirmPassword) && styles.buttonDisabled,
-          ]}
-          underlayColor="#99d9f4"
-          onPress={onPress}
-        >
-          <Text style={styles.buttonText}>Iniciar Sesión</Text>
-        </TouchableHighlight>
-      </SafeAreaView>
-    </View>
+    <SafeAreaView style={styles.safe}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
+        <View style={styles.header}>
+          <Text style={styles.emoji}>⚽</Text>
+          <Text style={styles.title}>Figuritas 2026</Text>
+          <Text style={styles.subtitle}>Intercambiá con tu barrio</Text>
+        </View>
+
+        <View style={styles.form}>
+          <TextInput
+            style={styles.input}
+            placeholder="Nombre de usuario"
+            placeholderTextColor="#aaa"
+            value={username}
+            onChangeText={setUsername}
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Contraseña"
+            placeholderTextColor="#aaa"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            autoCapitalize="none"
+          />
+
+          {error ? <Text style={styles.error}>{error}</Text> : null}
+
+          <TouchableOpacity
+            style={[styles.button, (!canSubmit || loading) && styles.buttonDisabled]}
+            onPress={handleLogin}
+            disabled={!canSubmit || loading}
+            activeOpacity={0.8}
+          >
+            {loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.buttonText}>Iniciar Sesión</Text>
+            )}
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.linkButton}
+            onPress={() => navigation.navigate("Register")}
+          >
+            <Text style={styles.linkText}>
+              ¿No tenés cuenta?{" "}
+              <Text style={styles.linkBold}>Registrate</Text>
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 20,
-  },
+  safe: { flex: 1, backgroundColor: "#0f172a" },
+  container: { flex: 1, justifyContent: "center", paddingHorizontal: 28 },
+  header: { alignItems: "center", marginBottom: 40 },
+  emoji: { fontSize: 56, marginBottom: 12 },
+  title: { fontSize: 30, fontWeight: "800", color: "#fff", letterSpacing: 0.5 },
+  subtitle: { fontSize: 15, color: "#94a3b8", marginTop: 6 },
+  form: { gap: 12 },
   input: {
-    width: 250,
-    height: 40,
-    margin: 12,
+    backgroundColor: "#1e293b",
+    color: "#fff",
+    borderRadius: 14,
+    paddingHorizontal: 18,
+    paddingVertical: 14,
+    fontSize: 16,
     borderWidth: 1,
-    borderRadius: 25,
-    paddingHorizontal: 15,
+    borderColor: "#334155",
+  },
+  error: {
+    color: "#f87171",
+    textAlign: "center",
+    fontSize: 14,
+    marginTop: 4,
   },
   button: {
-    width: 250,
-    height: 40,
-    margin: 12,
-    borderRadius: 25,
-    backgroundColor: "#2196F3",
-    justifyContent: "center",
+    backgroundColor: "#3b82f6",
+    borderRadius: 14,
+    paddingVertical: 15,
     alignItems: "center",
+    marginTop: 8,
   },
-  buttonDisabled: {
-    backgroundColor: "#cccccc",
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "bold",
-  },
-  statusText: {
-    textAlign: "center",
-    marginTop: 10,
-  },
+  buttonDisabled: { backgroundColor: "#334155" },
+  buttonText: { color: "#fff", fontSize: 16, fontWeight: "700" },
+  linkButton: { alignItems: "center", marginTop: 12 },
+  linkText: { color: "#94a3b8", fontSize: 15 },
+  linkBold: { color: "#3b82f6", fontWeight: "700" },
 });
-
-export default LoginScreen;
