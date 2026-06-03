@@ -4,3 +4,6 @@
 # IDE folders
 frontend/.claude/
 frontend/.vscode/
+
+# .env files
+*.env

@@ -1,5 +1,4 @@
-const BASE_URL = "http://192.168.1.36:8080"; // Android emulator → localhost
-// Para dispositivo físico, cambiar a la IP de tu máquina, ej: http://192.168.1.X:8080
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
 
 let authToken = null;
 
