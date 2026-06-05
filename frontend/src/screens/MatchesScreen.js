@@ -12,14 +12,23 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getMatches } from "../api/client";
 import FiguritaImage from "../components/FiguritaImage";
+import * as Location from "expo-location";
 
 export default function MatchesScreen({ navigation }) {
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [myLocation, setMyLocation] = useState(null);
 
   useEffect(() => {
     load();
+    Location.getForegroundPermissionsAsync().then(({ status }) => {
+    if (status === "granted") {
+      Location.getCurrentPositionAsync({}).then((loc) => {
+        setMyLocation(loc.coords);
+      });
+    }
+  });
   }, []);
 
   async function load() {
@@ -107,11 +116,25 @@ export default function MatchesScreen({ navigation }) {
     <SafeAreaView style={styles.safe} edges={["top"]}>
       <View style={styles.headerRow}>
         <Text style={styles.title}>Matches</Text>
-        {matches.length > 0 && (
-          <Text style={styles.subtitle}>{matches.length} usuario{matches.length !== 1 ? "s" : ""} cerca</Text>
-        )}
+        <View style={styles.headerRight}>
+          {matches.length > 0 && (
+            <Text style={styles.subtitle}>
+              {matches.length} usuario{matches.length !== 1 ? "s" : ""} cerca
+            </Text>
+          )}
+          {matches.length > 0 && (
+            <TouchableOpacity
+              style={styles.mapBtn}
+              onPress={() =>
+                navigation.navigate("MatchesMap", { matches, myLocation })
+              }
+              activeOpacity={0.8}
+            >
+              <Text style={styles.mapBtnText}>🗺️ Mapa</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
-
       <FlatList
         data={matches}
         keyExtractor={(item) => String(item.user.id)}
@@ -149,6 +172,16 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 16,
   },
+  headerRight: { alignItems: "flex-end", gap: 4 },
+  mapBtn: {
+    backgroundColor: "#1e293b",
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderWidth: 1,
+    borderColor: "#3b82f6",
+  },
+  mapBtnText: { color: "#3b82f6", fontSize: 13, fontWeight: "700" },
   title: { fontSize: 22, fontWeight: "800", color: "#fff" },
   subtitle: { fontSize: 13, color: "#64748b" },
   list: { paddingHorizontal: 14, paddingBottom: 24, gap: 10 },

@@ -13,6 +13,7 @@ import CollectionScreen from "./screens/CollectionScreen";
 import MatchesScreen from "./screens/MatchesScreen";
 import MatchDetailScreen from "./screens/MatchDetailScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import MatchesMapScreen from "./screens/MatchesMapScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -82,6 +83,7 @@ function AppNav() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="MainTabs" component={MainTabs} />
           <Stack.Screen name="MatchDetail" component={MatchDetailScreen} />
+          <Stack.Screen name="MatchesMap" component={MatchesMapScreen} />
         </Stack.Navigator>
       ) : (
         <AuthStack />
