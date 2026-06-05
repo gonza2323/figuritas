@@ -1,6 +1,9 @@
 package com.example.figuritas.usuario;
 
 import com.example.figuritas.error.BusinessException;
+import com.example.figuritas.imagen.Imagen;
+import com.example.figuritas.imagen.ImagenService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,7 @@ public class UsuarioService {
     private final UsuarioRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final UsuarioMapper usuarioMapper;
+    private final ImagenService imagenService;
 
     @Transactional(readOnly = true)
     public Usuario find(Long id) {
@@ -32,11 +36,14 @@ public class UsuarioService {
 
         String passwordHash = passwordEncoder.encode(dto.getPassword());
 
+        Imagen avatar = imagenService.getRandomAvatar();
+
         Usuario usuario = Usuario.builder()
                 .username(dto.getUsername())
                 .password(passwordHash)
                 .latitude(dto.getLatitude())
                 .longitude(dto.getLongitude())
+                .avatar(avatar)
                 .build();
 
         return repository.save(usuario);

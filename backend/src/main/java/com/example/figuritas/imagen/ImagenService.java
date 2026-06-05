@@ -2,6 +2,10 @@ package com.example.figuritas.imagen;
 
 import com.example.figuritas.error.BusinessException;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+import java.util.Random;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,4 +21,11 @@ public class ImagenService {
 
          return imagenMapper.toDto(imagen);
     }
+
+    public Imagen getRandomAvatar() {
+        List<Imagen> avatars = repository.findByTipo(TipoImagen.USUARIO);
+        if (avatars.isEmpty()) return null;
+        return avatars.get(new Random().nextInt(avatars.size()));
+    }
 }
+

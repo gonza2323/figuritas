@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface ImagenRepository extends JpaRepository<Imagen, Long> {
     Optional<Imagen> findByIdAndEliminadoFalse(Long id);
+
+    List<Imagen> findByTipo(TipoImagen tipo);
 }
